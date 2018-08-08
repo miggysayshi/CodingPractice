@@ -9,20 +9,19 @@ class Solution{
     }
     public void back(int[] candidates, int target, int tail, List<List<Integer>> res, List<Integer> temp){
         int difference = target - candidates[tail];
+        if (difference < 0) return;     //cutting branch
         if(difference == 0){
             temp.add(candidates[tail]);
-            res.add(temp);
+            res.add(new ArrayList<Integer>(temp));
             temp.remove(temp.size()-1);
             return;
         }
         else if(difference > 0){
             temp.add(candidates[tail]);
-            for(int j=tail; j>0; j--){
-                back(cadidates, difference, j, res, temp);
+            for(int j=tail-1; j>0; j--){
+                back(candidates, difference, j, res, temp);
             }
         }
-        if(difference < 0){
-            return;
-        }
+        temp.remove(temp.size()-1);
     }
 }
