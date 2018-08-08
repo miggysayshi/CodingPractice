@@ -17,12 +17,11 @@ class Solution{
         }
         else if(difference > 0){
             temp.add(candidates[tail]);
-            back(candidates, difference, tail, res, temp);
+            for(int j=tail; j>0; j--){
+                back(cadidates, difference, j, res, temp);
+            }
         }
-        for(int j=tail; j>0; j--){
-            back(cadidates, difference, j, res, temp);
-        }
-        else if(difference < 0){
+        if(difference < 0){
             return;
         }
     }
