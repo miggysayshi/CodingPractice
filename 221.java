@@ -1,24 +1,25 @@
 class Solution{
     public int maximalSquare(char[][] matrix){
+        if(matrix.length<=0) return 0;
         //create a new value matrix
-        int[][] value = new [matrix.length][matrix[0].length];
+        int[][] value = new int[matrix.length][matrix[0].length];
         //iterate through the entire matrix
         for(int i=0; i<matrix.length; i++){
-            for(int j=0; j<matrix.length; j++){
+            for(int j=0; j<matrix[0].length; j++){
                 if(matrix[i][j] == '0'){
                     value[i][j] = 0;
                 }
                 if(matrix[i][j] == '1'){
-                    int bottom = checkBounds(matrix[i][j-1], i, j-1);
-                    int right = checkBounds(matrix[i-1][j], i-1, j);
-                    int diagonal = checkBounds(matrix[i-1][j-1], i-1,j-1);
-                    value[i][j] = Math.min(bottom, right, diagonal) + 1;
+                    int bottom = checkBounds(value, i, j-1);
+                    int right = checkBounds(value, i-1, j);
+                    int diagonal = checkBounds(value, i-1,j-1);
+                    value[i][j] = Math.min(Math.min(bottom, right), diagonal) + 1;
                 }
             }
         }
         int max =0;
         for(int i=0; i<matrix.length; i++){
-            for(int j=0; j<matrix.length; j++){
+            for(int j=0; j<matrix[0].length; j++){
                 max = Math.max(value[i][j], max);
             }
         }
@@ -31,9 +32,9 @@ class Solution{
 
         // interate through the entire value matrix and return the largest square
     }
-    public int checkBounds(char[][] matrix, i, j){
-        if(i<0 || j<0 || i>matrix.length || j>matrix[0].length) return 0;
-        else return matrix[i][j];
+    public int checkBounds(int[][] value, int i, int j){
+        if(i<0 || j<0 || i>value.length || j>value[0].length) return 0;
+        else return value[i][j];
     }
 
 }
